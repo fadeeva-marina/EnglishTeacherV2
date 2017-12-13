@@ -126,7 +126,6 @@ namespace EnglishTeacher.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
 
@@ -140,14 +139,13 @@ namespace EnglishTeacher.Controllers
 
         // POST api/Account/SetPassword
         [Route("SetPassword")]
-        public async Task<IHttpActionResult> SetPassword(string userID, SetPasswordBindingModel model)
+        public async Task<IHttpActionResult> SetPassword(IdentityUser user, SetPasswordBindingModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            IdentityResult result = await UserManager.AddPasswordAsync(userID, model.NewPassword);
+            IdentityResult result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.NewPassword);
 
             if (!result.Succeeded)
             {
@@ -377,13 +375,12 @@ namespace EnglishTeacher.Controllers
                 if (user == null)
                 {
                     return Ok();
-                }
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link                
+                }              
                 var modelPassword = new SetPasswordBindingModel();
                 modelPassword.NewPassword = PasswordGeneratorService.GeneratePassword(6);
                 modelPassword.ConfirmPassword = modelPassword.NewPassword;
-                var result = SetPassword(user.Id,modelPassword);
+                modelPassword.Code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var result = SetPassword(user, modelPassword);
                 await UserManager.SendEmailAsync(user.Id, "Сброс пароля", $"Ваш новый пароль::" + modelPassword.NewPassword );
                 return Ok();
             }
@@ -393,28 +390,28 @@ namespace EnglishTeacher.Controllers
         }
 
         // POST api/Account/ResetPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [Route("ResetPassword")]
-        public async Task<IHttpActionResult> ResetPassword(ResetPasswordBindingModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
-            {
-                // Don't reveal that the user does not exist
-                return Ok();
-            }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return Ok();
-            }
-            return Ok();
-        }
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[Route("ResetPassword")]
+        //public async Task<IHttpActionResult> ResetPassword(ResetPasswordBindingModel model)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+        //    var user = await UserManager.FindByNameAsync(model.Email);
+        //    if (user == null)
+        //    {
+        //        // Don't reveal that the user does not exist
+        //        return Ok();
+        //    }
+        //    var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+        //    if (result.Succeeded)
+        //    {
+        //        return Ok();
+        //    }
+        //    return Ok();
+        //}
 
         // POST api/Account/RegisterExternal
         [OverrideAuthentication]

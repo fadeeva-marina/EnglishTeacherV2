@@ -26,6 +26,19 @@ body {
         height: auto;
     }
 
+.form-group .my-but {
+    margin: 5px 0 0 0;
+}
+
+.forgot-pass-section {
+    padding: 20px 20px;
+    color: #afafbf;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    font-size: 20px;
+    text-align: center;
+}
+
 .main {
     background: #200122;
     width: 400px;
@@ -41,7 +54,6 @@ body {
 
 #add-section {
     display: none;
-    width: 400px;
     height: 400px;
     background: linear-gradient(#2e3a6a,#2f0b45);
 }
@@ -186,6 +198,7 @@ a:hover, a:focus {
     color: #7f8291;
     text-transform: capitalize;
     margin-bottom: 10px;
+    font-size: 16px;
 }
 
 .form-horizontal .main-checkbox {

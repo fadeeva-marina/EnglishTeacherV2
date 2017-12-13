@@ -70,6 +70,8 @@ namespace EnglishTeacher.Models
 
     public class SetPasswordBindingModel
     {
+        public string Code { get; set; }
+
         [Required]
         [StringLength(100, ErrorMessage = "Значение {0} должно содержать не менее {2} символов.", MinimumLength = 6)]
         [DataType(DataType.Password)]
@@ -87,11 +89,11 @@ namespace EnglishTeacher.Models
         public string Email { get; set; }
     }
 
-    public class ResetPasswordBindingModel
-    {
-        public string Code { get; set; }
-        public string ConfirmPassword { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
+    //public class ResetPasswordBindingModel
+    //{
+    //    public string Code { get; set; }
+    //    public string ConfirmPassword { get; set; }
+    //    public string Email { get; set; }
+    //    public string Password { get; set; }
+    //}
 }

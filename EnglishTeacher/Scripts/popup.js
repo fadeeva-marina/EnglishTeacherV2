@@ -90,6 +90,40 @@ $(function () {
             $('#add-section').fadeIn('1000');
         }, 500);
     });
+    $('#cancle').click(function () {
+        $("#add-section").fadeOut('1000');
+        setTimeout(function () {
+            $('#main-section').fadeIn('1000');
+        }, 500);
+    });
+    $('#send-new-pass').click(function (e) {
+        e.preventDefault();
+        var data = {
+            Email: $('#emailToSend').val(),
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:54049/api/Account/ForgotPassword/',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(data),
+            beforeSend: function () {
+                preloader.css('display', 'block');
+            },
+            complete: function () {
+                preloader.css('display', 'none');
+            },
+            success: function () {
+                alert("Вам отправлено письмо с новым паролем");
+            },
+            fail: function (data) {
+                alert(data.responseText);
+            },
+            error: function (data) {
+                alert(data.responseText);
+            }
+        });
+    });
     /////////////////////////////////////дальше код, который пока не подключён
     $('#logOut').click(function (e) {
         e.preventDefault();
