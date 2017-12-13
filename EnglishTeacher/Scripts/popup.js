@@ -51,38 +51,60 @@ $(function () {
         });
     });
     var tokenKey = "tokenInfo";
+    var user = getCookie("username");
+    var password = getCookie("password");
+    if (user || password) {
+        var email = getCookie("username");
+        var password = getCookie("password");
+        login(email, password, preloader, function (data) {
+            sessionStorage.setItem(tokenKey, data.access_token);
+            document.location.href = "main.html";
+        });
 
-    $('#but-Sign-In').click(function (e) {
-        e.preventDefault();
-        var loginData = {
-            grant_type: 'password',
-            username: $('#emailLogin').val(),
-            password: $('#passwordLogin').val()
-        };
-        var ajaxData = {
-            type: 'POST',
-            url: 'http://localhost:54049/Token',
-            data: loginData,
-            beforeSend: function () {
-                preloader.css('display', 'block');
-            },
-            complete: function () {
-                preloader.css('display', 'none');
-            },
-            success: function (data) {
-                sessionStorage.setItem(tokenKey, data.access_token);
-                document.location.href = "main.html";
-            },
-            fail: function (data) {
-                alert(data.responseText);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(jqXHR.responseText || textStatus);
-            }
-        };       
+    } else {
+        $(document).ready(function () {
+            $('#but-Sign-In').click(function (e) {
+                e.preventDefault();
+                var email = $('#emailLogin').val();
+                var password = $('#passwordLogin').val();
+                login(email, password, preloader, function (data) {
+                    sessionStorage.setItem(tokenKey, data.access_token);
+                    setCookie("username", email);
+                    setCookie("password", password);
+                    document.location.href = "main.html";
+                });
+            });
+        });
+    }
+    //var loginData = {
+    //    grant_type: 'password',
+    //    username: $('#emailLogin').val(),
+    //    password: $('#passwordLogin').val()
+    //};
+    //var ajaxData = {
+    //    type: 'POST',
+    //    url: 'http://localhost:54049/Token',
+    //    data: loginData,
+    //    beforeSend: function () {
+    //        preloader.css('display', 'block');
+    //    },
+    //    complete: function () {
+    //        preloader.css('display', 'none');
+    //    },
+    //    success: function (data) {
+    //        sessionStorage.setItem(tokenKey, data.access_token);
+    //        document.location.href = "main.html";
+    //    },
+    //    fail: function (data) {
+    //        alert(data.responseText);
+    //    },
+    //    error: function (jqXHR, textStatus, errorThrown) {
+    //        alert(jqXHR.responseText || textStatus);
+    //    }
+    //};
 
-        $.ajax(ajaxData);
-    });
+    //$.ajax(ajaxData);
+
 
     $('#forgot-pass').click(function () {
         $("#main-section").fadeOut('1000');
@@ -99,7 +121,7 @@ $(function () {
     $('#send-new-pass').click(function (e) {
         e.preventDefault();
         var data = {
-            Email: $('#emailToSend').val(),
+            Email: $('#emailToSend').val()
         };
 
         $.ajax({
