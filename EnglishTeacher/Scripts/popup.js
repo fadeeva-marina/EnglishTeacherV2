@@ -19,6 +19,7 @@
 //}, false);
 
 $(function () {
+    var preloader = $('#wrapped');
     $('#but-Sign-Up').click(function (e) {
         e.preventDefault();
         var data = {
@@ -32,12 +33,20 @@ $(function () {
             url: 'http://localhost:54049/api/Account/Register/',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
+            beforeSend: function () {
+                preloader.css('display', 'block');
+            },
+            complete: function () {
+                preloader.css('display', 'none');
+            },
             success: function (data) {
                 alert("Всё норм");
-
             },
             fail: function (data) {
-                alert("В процесе регистрации возникла ошибка");
+                alert(data.responseText);
+            },
+            error: function (data) {
+                alert(data.responseText);
             }
         });
     });
@@ -50,26 +59,29 @@ $(function () {
             username: $('#emailLogin').val(),
             password: $('#passwordLogin').val()
         };
-
-        $.ajax({
+        var ajaxData = {
             type: 'POST',
             url: 'http://localhost:54049/Token',
             data: loginData,
             beforeSend: function () {
-                $preloader.show();
+                preloader.css('display', 'block');
+            },
+            complete: function () {
+                preloader.css('display', 'none');
             },
             success: function (data) {
                 sessionStorage.setItem(tokenKey, data.access_token);
-                alert('Всё ок');
                 document.location.href = "main.html";
             },
-            complete: function () {
-                $preloader.hide();
-            },
             fail: function (data) {
-                alert('При логине возникла ошибка');
+                alert(data.responseText);
+            },
+            error: function (data) {
+                alert(data.responseText);
             }
-        });
+        };       
+
+        $.ajax(ajaxData);
     });
 
     $('#forgot-pass').click(function () {

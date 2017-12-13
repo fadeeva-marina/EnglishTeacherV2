@@ -24,7 +24,7 @@ namespace EnglishTeacher.Services
         {
             var from = ConfigurationManager.AppSettings.Get("FromAddress");
             var password = ConfigurationManager.AppSettings.Get("Password");
-            using (SmtpClient Smtp = new SmtpClient("smtp.mail.ru", 587))
+            using (SmtpClient Smtp = new SmtpClient(ConfigurationManager.AppSettings.Get("SmtpClient"), int.Parse(ConfigurationManager.AppSettings.Get("SMTPPort"))))
             {
                 Smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 Smtp.UseDefaultCredentials = false;
