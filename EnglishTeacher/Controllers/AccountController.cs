@@ -24,7 +24,6 @@ namespace EnglishTeacher.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
-    // [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
@@ -561,12 +560,6 @@ namespace EnglishTeacher.Controllers
                 return HttpServerUtility.UrlTokenEncode(data);
             }
         }
-        [AllowAnonymous]
-        public void Options()
-        {
-
-        }
-
         #endregion
     }
 }

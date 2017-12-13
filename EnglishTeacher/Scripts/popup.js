@@ -76,8 +76,8 @@ $(function () {
             fail: function (data) {
                 alert(data.responseText);
             },
-            error: function (data) {
-                alert(data.responseText);
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText || textStatus);
             }
         };       
 
@@ -124,31 +124,31 @@ $(function () {
             }
         });
     });
+    $('#getItemsButton').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:54049/api/Values/GetValues',
+            //     datatype: 'jsonp',
+            beforeSend: function (xhr) {
+                var token = sessionStorage.getItem(tokenKey);
+                xhr.setRequestHeader("Authorization", "Bearer " + token);
+            },
+            success: function (data) {
+                alert(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText || textStatus);
+            }
+        });
+    });
     /////////////////////////////////////дальше код, который пока не подключён
     $('#logOut').click(function (e) {
         e.preventDefault();
         sessionStorage.removeItem(tokenKey);
     });
 
-    //$('#getItemsButton').click(function (e) {
-    //    e.preventDefault();
-    //    $.ajax({
-    //        type: 'GET',
-    //        url: 'http://localhost:54049/api/values/',
-    //        //     datatype: 'jsonp',
-    //        beforeSend: function (xhr) {
-    //            var token = sessionStorage.getItem(tokenKey);
-    //            console.log(token);
-    //            xhr.setRequestHeader("Authorization", "Bearer " + token);
-    //        },
-    //        success: function (data) {
-    //            alert(data);
-    //        },
-    //        error: function (jqXHR, textStatus, errorThrown) {
-    //            alert(jqXHR.responseText || textStatus);
-    //        }
-    //    });
-    //});
+
 });
 //document.addEventListener('DOMContentLoaded', function () {
 //    document.querySelector('#submitLogin').addEventListener('click', clickHandler);
