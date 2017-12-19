@@ -17,9 +17,36 @@
 //        });
 //    }, false);
 //}, false);
+var preloader = $('#wrapped');
+var tokenKey = "tokenInfo";
+var user = getCookie("username");
+var password = getCookie("password");
+if (user || password) {
+    var email = getCookie("username");
+    var password = getCookie("password");
+    login(email, password, preloader, function (data) {
+        sessionStorage.setItem(tokenKey, data.access_token);
+        document.location.href = "main.html";
+    });
+
+} else {
+    $(document).ready(function () {
+        $('#but-Sign-In').click(function (e) {
+            e.preventDefault();
+            var email = $('#emailLogin').val();
+            var password = $('#passwordLogin').val();
+            login(email, password, preloader, function (data) {
+                sessionStorage.setItem(tokenKey, data.access_token);
+                setCookie("username", email);
+                setCookie("password", password);
+                document.location.href = "main.html";
+            });
+        });
+    });
+}
 
 $(function () {
-    var preloader = $('#wrapped');
+    
     $('#but-Sign-Up').click(function (e) {
         e.preventDefault();
         var data = {
@@ -50,32 +77,7 @@ $(function () {
             }
         });
     });
-    var tokenKey = "tokenInfo";
-    var user = getCookie("username");
-    var password = getCookie("password");
-    if (user || password) {
-        var email = getCookie("username");
-        var password = getCookie("password");
-        login(email, password, preloader, function (data) {
-            sessionStorage.setItem(tokenKey, data.access_token);
-            document.location.href = "main.html";
-        });
-
-    } else {
-        $(document).ready(function () {
-            $('#but-Sign-In').click(function (e) {
-                e.preventDefault();
-                var email = $('#emailLogin').val();
-                var password = $('#passwordLogin').val();
-                login(email, password, preloader, function (data) {
-                    sessionStorage.setItem(tokenKey, data.access_token);
-                    setCookie("username", email);
-                    setCookie("password", password);
-                    document.location.href = "main.html";
-                });
-            });
-        });
-    }
+    
     //var loginData = {
     //    grant_type: 'password',
     //    username: $('#emailLogin').val(),
