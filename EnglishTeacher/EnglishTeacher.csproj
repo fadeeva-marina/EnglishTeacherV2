@@ -281,6 +281,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\extantion.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -307,6 +308,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\185095 %284%29.ico" />
+    <Content Include="Images\set.ico" />
     <Content Include="Images\preloader.gif" />
     <Content Include="Images\preloader1.gif" />
     <Content Include="manifest.json" />
@@ -338,9 +341,12 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\select.js" />
+    <Content Include="Scripts\select_demo2.js" />
     <Content Include="Views\Home\autorization.html" />
     <Content Include="Views\Home\background.html" />
     <Content Include="Views\Home\main.html" />
+    <Content Include="Views\Home\settings.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
