@@ -114,6 +114,12 @@ $(function () {
             $('#add-section').fadeIn('1000');
         }, 500);
     });
+    $('#ok').click(function () {
+        $('#wrapped').fadeOut('1000');
+        setTimeout(function () {
+            $('#main-section').fadeIn('1000');
+        }, 500);
+    });
     $('#cancle').click(function () {
         $("#add-section").fadeOut('1000');
         setTimeout(function () {

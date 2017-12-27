@@ -278,6 +278,7 @@
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="background.js" />
     <Content Include="bookmark.png" />
+    <Content Include="consulting.ico" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -311,6 +312,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Images\185095 %284%29.ico" />
+    <Content Include="Images\consulting.ico" />
     <Content Include="Images\logout.ico" />
     <Content Include="Images\set.ico" />
     <Content Include="Images\preloader.gif" />
