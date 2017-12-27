@@ -422,12 +422,22 @@ a:hover, a:focus {
     background: #786b59; 
     color: #ffe; 
 }*/
-#yesno:focus, #yesno:hover {
+#yes:focus, #yes:hover {
     color: #eec111; /* Цвет ссылки */
     cursor : pointer;
 }
 
-#yesno {
+#yes {
+    color: white;
+    margin: 10px;
+}
+
+    #no:focus, #no:hover {
+        color: #eec111; /* Цвет ссылки */
+        cursor: pointer;
+    }
+
+#no {
     color: white;
     margin: 10px;
 }
@@ -471,8 +481,24 @@ span {
     text-align: center;
     font-size: 18px;
 }
-/*Список выпадающий*/
-
+.text_prim label {
+    justify-content: center;
+    /*top: 30%;*/
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    
+    margin: 0 auto;
+}
+.transl_transc {
+    justify-content: center;
+    text-align: center;
+    font-size: 18px;
+}
+.word {
+    justify-content: center;
+    text-align: center;
+    font-size: 30px;
+}
 @media only screen and (max-width: 479px) {
     .tab {
         padding: 40px 20px;

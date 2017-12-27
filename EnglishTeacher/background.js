@@ -1,4 +1,4 @@
-﻿chrome.alarms.create({ 'delayInMinutes': 1, 'periodInMinutes': 1 });
+﻿chrome.alarms.create({ 'delayInMinutes': 10, 'periodInMinutes': 10 });
 function launch() {
     //chrome.app.window.create('Views/Home/main.html', {
     //    id: 'main',
@@ -12,7 +12,7 @@ function showNotification() {
 
     chrome.notifications.create('reminder', {
         type: 'basic',
-        iconUrl: '../../icon.png',
+        iconUrl: '../../bookmark.png',
         title: 'Привет!',
         message: 'Есть новое слово для тебя! Загляни в расширение'
     }, function (notificationId) { });
